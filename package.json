@@ -1,0 +1,21 @@
+{
+  "name": "firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "format": "prettier \"src/**/*.{js,html}\" --write",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "test": ""
+  },
+  "author": "",
+  "license": "ISC"
+}
