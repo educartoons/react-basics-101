@@ -2,7 +2,6 @@ import React from 'react';
 
 const Pet = ({ name, animal, breed }) => {
   // JSX
-  name = name + 'asdad';
   return (
     <div>
       <h1>{name}</h1>

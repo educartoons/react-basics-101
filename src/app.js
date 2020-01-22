@@ -10,7 +10,6 @@ const App = () => {
     <div>
       <h1>Adopt me!</h1>
       <SearchParams />
-      <Pet name="Toby" animal="dog" breed="mixed" />
     </div>
   );
 };
