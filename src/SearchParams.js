@@ -57,8 +57,8 @@ const SearchParams = () => {
         <AnimalDropdown />
         <BreedDropdown />
         <button>submit</button>
-        <Results pets={pets} />
       </form>
+      <Results pets={pets} />
     </div>
   );
 };
