@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from '@reach/router';
 
-import SearchParams from './SearchParams';
+import Routes from './Routes';
 
 const App = () => {
   return (
     // JSX
     <React.StrictMode>
       <div>
-        <h1>Adopt me!</h1>
-        <SearchParams />
+        <header>
+          <Link to="/">
+            <h1>Adopt me!</h1>
+          </Link>
+        </header>
+        <Routes />
       </div>
     </React.StrictMode>
   );
