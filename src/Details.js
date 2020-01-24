@@ -19,6 +19,7 @@ class Details extends Component {
         loading: false
       });
     });
+    throw Error('error');
   }
   render() {
     if (this.state.loading) {
