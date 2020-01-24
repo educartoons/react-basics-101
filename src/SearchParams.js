@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import pet, { ANIMALS } from '@frontendmasters/pet';
 
 import useDropdown from './useDropdown';
 import Results from './Results';
-
+import ThemeContext from './ThemeContext';
 // functional component
 
 const SearchParams = () => {
@@ -14,6 +14,8 @@ const SearchParams = () => {
   // custom hook
   const [animal, AnimalDropdown] = useDropdown('Animal', 'dog', ANIMALS);
   const [breed, BreedDropdown, setBreed] = useDropdown('Breed', '', breeds);
+
+  const [theme] = useContext(ThemeContext);
 
   async function requestPets() {
     const { animals } = await pet
@@ -56,7 +58,7 @@ const SearchParams = () => {
         </label>
         <AnimalDropdown />
         <BreedDropdown />
-        <button>submit</button>
+        <button style={{ backgroundColor: theme }}>submit</button>
       </form>
       <Results pets={pets} />
     </div>

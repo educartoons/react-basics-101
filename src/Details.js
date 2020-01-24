@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import pet from '@frontendmasters/pet';
 import Carousel from './Carousel';
 import ErrorBoundary from './ErrorBoundary';
+import ThemeContext from './ThemeContext';
 
 class Details extends Component {
   state = {
@@ -19,7 +20,6 @@ class Details extends Component {
         loading: false
       });
     });
-    throw Error('error');
   }
   render() {
     if (this.state.loading) {
@@ -31,7 +31,11 @@ class Details extends Component {
           <Carousel media={media} />
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${location}`}</h2>
-          <button>Adopt me!</button>
+          <ThemeContext.Consumer>
+            {theme => (
+              <button style={{ backgroundColor: theme[0] }}>Adopt me!</button>
+            )}
+          </ThemeContext.Consumer>
           <p>{description}</p>
         </div>
       );
