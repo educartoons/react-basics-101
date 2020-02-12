@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Router } from '@reach/router';
 
 import SearchParams from './SearchParams';
-import Details from './Details';
 import Config from './Config';
 import NotFound from './NotFound';
 
+const Details = lazy(() => import('./Details'));
+
 const Routes = () => {
   return (
-    <Router>
-      <SearchParams path="/" />
-      <Config path="config" />
-      <Details path="details/:id" />
-      <NotFound default />
-    </Router>
+    <Suspense fallback={<h1>loading route...</h1>}>
+      <Router>
+        <SearchParams path="/" />
+        <Config path="config" />
+        <Details path="details/:id" />
+        <NotFound default />
+      </Router>
+    </Suspense>
   );
 };
 
