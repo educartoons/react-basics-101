@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 import { Router } from '@reach/router';
 
-import SearchParams from './SearchParams';
 import Config from './Config';
 import NotFound from './NotFound';
 
+const SearchParams = lazy(() => import('./SearchParams'));
 const Details = lazy(() => import('./Details'));
 
 const Routes = () => {
