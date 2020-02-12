@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@babel/node": "^7.8.4",
     "@babel/runtime": "^7.8.3",
     "@frontendmasters/pet": "^1.0.3",
     "@reach/router": "^1.2.1",
+    "babel-cli": "^6.26.0",
+    "express": "^4.17.1",
     "momen": "0.0.1-security",
     "moment": "^2.24.0",
     "parcel-bundler": "^1.12.4",
@@ -34,6 +37,8 @@
     "dev": "node_modules/.bin/parcel src/index.html",
     "format": "prettier \"src/**/*.{js,html}\" --write",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "start": "npm run build && babel-node server/index.js",
+    "build": "parcel build --public-url ./dist/ src/index.html",
     "test": ""
   },
   "browserslist": [
