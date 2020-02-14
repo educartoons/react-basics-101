@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from '@reach/router';
-
+import { Provider } from 'react-redux';
 import Routes from './Routes';
-
-import ThemeContext from './ThemeContext';
+import store from './store';
 
 const App = () => {
-  const themeHook = useState('peru');
   return (
     // JSX
-    <React.StrictMode>
-      <ThemeContext.Provider value={themeHook}>
+    <Provider store={store}>
+      <React.StrictMode>
         <div>
           <header>
             <Link to="/">
@@ -20,8 +18,8 @@ const App = () => {
           </header>
           <Routes />
         </div>
-      </ThemeContext.Provider>
-    </React.StrictMode>
+      </React.StrictMode>
+    </Provider>
   );
 };
 

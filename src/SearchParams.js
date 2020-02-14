@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import pet, { ANIMALS } from '@frontendmasters/pet';
 
+import { connect } from 'react-redux';
+
 import useDropdown from './useDropdown';
 import Results from './Results';
-import ThemeContext from './ThemeContext';
+import changeTheme from './actionCreators/changeTheme';
 // functional component
 
-const SearchParams = () => {
+const SearchParams = props => {
   // useState hook
   const [location, setLocation] = useState('Seattle, WA');
   const [breeds, setBreeds] = useState([]);
@@ -14,8 +16,6 @@ const SearchParams = () => {
   // custom hook
   const [animal, AnimalDropdown] = useDropdown('Animal', 'dog', ANIMALS);
   const [breed, BreedDropdown, setBreed] = useDropdown('Breed', '', breeds);
-
-  const [theme] = useContext(ThemeContext);
 
   async function requestPets() {
     const { animals } = await pet
@@ -58,11 +58,20 @@ const SearchParams = () => {
         </label>
         <AnimalDropdown />
         <BreedDropdown />
-        <button style={{ backgroundColor: theme }}>submit</button>
+        <button style={{ backgroundColor: props.theme }}>submit</button>
       </form>
+      <button onClick={() => props.setTheme('red')}>Change color to red</button>
       <Results pets={pets} />
     </div>
   );
 };
 
-export default SearchParams;
+const mapStateToProps = ({ theme }) => ({
+  theme
+});
+
+const mapDispatchToProps = dispatch => ({
+  setTheme: theme => dispatch(changeTheme(theme))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchParams);
