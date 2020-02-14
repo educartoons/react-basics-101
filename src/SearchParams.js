@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import pet, { ANIMALS } from '@frontendmasters/pet';
 
 import { connect } from 'react-redux';
@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import useDropdown from './useDropdown';
 import Results from './Results';
 import changeTheme from './actionCreators/changeTheme';
+import changeLocation from './actionCreators/changeLocation';
 // functional component
 
 const SearchParams = props => {
   // useState hook
-  const [location, setLocation] = useState('Seattle, WA');
   const [breeds, setBreeds] = useState([]);
   const [pets, setPets] = useState([]);
   // custom hook
@@ -50,9 +50,9 @@ const SearchParams = props => {
           Location
           <input
             id="location"
-            value={location}
+            value={props.location}
             placeholder="Location"
-            onChange={e => setLocation(e.target.value)}
+            onChange={e => props.setLocation(e.target.value)}
             type="text"
           />
         </label>
@@ -66,12 +66,14 @@ const SearchParams = props => {
   );
 };
 
-const mapStateToProps = ({ theme }) => ({
-  theme
+const mapStateToProps = ({ theme, location }) => ({
+  theme,
+  location
 });
 
 const mapDispatchToProps = dispatch => ({
-  setTheme: theme => dispatch(changeTheme(theme))
+  setTheme: theme => dispatch(changeTheme(theme)),
+  setLocation: location => dispatch(changeLocation(location))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchParams);
