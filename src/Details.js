@@ -1,9 +1,9 @@
 import React, { Component, lazy } from 'react';
 import { navigate } from '@reach/router';
+import { connect } from 'react-redux';
 import pet from '@frontendmasters/pet';
 import Carousel from './Carousel';
 import ErrorBoundary from './ErrorBoundary';
-import ThemeContext from './ThemeContext';
 
 const Modal = lazy(() => import('./Modal'));
 
@@ -50,16 +50,12 @@ class Details extends Component {
           <Carousel media={media} />
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${location}`}</h2>
-          <ThemeContext.Consumer>
-            {theme => (
-              <button
-                style={{ backgroundColor: theme[0] }}
-                onClick={this.toggleModal}
-              >
-                Adopt me!
-              </button>
-            )}
-          </ThemeContext.Consumer>
+          <button
+            style={{ backgroundColor: this.props.theme }}
+            onClick={this.toggleModal}
+          >
+            Adopt me!
+          </button>
           <p>{description}</p>
           {showModal && (
             <Modal>
@@ -78,10 +74,14 @@ class Details extends Component {
   }
 }
 
+const mapStateToProps = ({ theme }) => ({ theme });
+
+const WrappedDetails = connect(mapStateToProps)(Details);
+
 const DetailsWithErrorBoundary = props => {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <WrappedDetails {...props} />
     </ErrorBoundary>
   );
 };

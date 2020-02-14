@@ -1,26 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import pet, { ANIMALS } from '@frontendmasters/pet';
+
+import { connect } from 'react-redux';
 
 import useDropdown from './useDropdown';
 import Results from './Results';
-import ThemeContext from './ThemeContext';
+import changeTheme from './actionCreators/changeTheme';
+import changeLocation from './actionCreators/changeLocation';
 // functional component
 
-const SearchParams = () => {
+const SearchParams = props => {
   // useState hook
-  const [location, setLocation] = useState('Seattle, WA');
   const [breeds, setBreeds] = useState([]);
   const [pets, setPets] = useState([]);
   // custom hook
   const [animal, AnimalDropdown] = useDropdown('Animal', 'dog', ANIMALS);
   const [breed, BreedDropdown, setBreed] = useDropdown('Breed', '', breeds);
 
-  const [theme] = useContext(ThemeContext);
-
   async function requestPets() {
     const { animals } = await pet
       .animals({
-        location,
+        location: props.location,
         breed,
         type: animal
       })
@@ -50,19 +50,29 @@ const SearchParams = () => {
           Location
           <input
             id="location"
-            value={location}
+            value={props.location}
             placeholder="Location"
-            onChange={e => setLocation(e.target.value)}
+            onChange={e => props.updateLocation(e.target.value)}
             type="text"
           />
         </label>
         <AnimalDropdown />
         <BreedDropdown />
-        <button style={{ backgroundColor: theme }}>submit</button>
+        <button style={{ backgroundColor: props.theme }}>submit</button>
       </form>
       <Results pets={pets} />
     </div>
   );
 };
 
-export default SearchParams;
+const mapStateToProps = ({ theme, location }) => ({
+  theme,
+  location
+});
+
+const mapDispatchToProps = dispatch => ({
+  setTheme: theme => dispatch(changeTheme(theme)),
+  updateLocation: location => dispatch(changeLocation(location))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchParams);
